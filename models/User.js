@@ -33,28 +33,28 @@ class User {
    * @param {string} [userData.id] - ID único del usuario (UUID v4, se genera automáticamente si no se proporciona)
    * @param {string} userData.name - Nombre completo del usuario (2-50 caracteres)
    * @param {string} userData.email - Dirección de email válida del usuario
-   * @param {string} userData.password - Contraseña del usuario (6-100 caracteres)
+   * @param {string} userData.password - Contraseña del usuario (debe ser fuerte: 8+ caracteres, mayúscula, minúscula, número, carácter especial, máx 100)
    * @param {string} [userData.createdAt] - Fecha de creación en formato ISO (se genera automáticamente si no se proporciona)
    *
    * @throws {Error} Cuando los datos proporcionados no cumplen con las validaciones básicas
    *
    * @example
-   * // Usuario con ID generado automáticamente
-   * const user1 = new User({
-   *   name: "Juan Pérez",
-   *   email: "juan@example.com",
-   *   password: "password123"
-   * });
+ * // Usuario con ID generado automáticamente
+ * const user1 = new User({
+ *   name: "Juan Pérez",
+ *   email: "juan@example.com",
+ *   password: "SecurePass123!"
+ * });
    *
    * @example
-   * // Usuario con ID específico (útil para migraciones)
-   * const user2 = new User({
-   *   id: "custom-uuid-123",
-   *   name: "Ana López",
-   *   email: "ana@example.com",
-   *   password: "securePass456",
-   *   createdAt: "2025-01-15T08:00:00.000Z"
-   * });
+ * // Usuario con ID específico (útil para migraciones)
+ * const user2 = new User({
+ *   id: "custom-uuid-123",
+ *   name: "Ana López",
+ *   email: "ana@example.com",
+ *   password: "MySecurePass456!",
+ *   createdAt: "2025-01-15T08:00:00.000Z"
+ * });
    */
   constructor({ id = null, name, email, password, createdAt = null }) {
     this.id = id || uuidv4();
@@ -90,6 +90,93 @@ class User {
    */
 
   /**
+   * Validar la fortaleza de una contraseña
+   *
+   * Esta función estática evalúa si una contraseña cumple con los criterios de seguridad
+   * requeridos por el sistema. Una contraseña fuerte debe contener al menos:
+   * - 8 caracteres de longitud mínima
+   * - Una letra minúscula
+   * - Una letra mayúscula
+   * - Un número
+   * - Un carácter especial
+   *
+   * @static
+   * @param {string} password - Contraseña a validar
+   *
+   * @returns {Object} Resultado de la validación
+   * @returns {boolean} return.isValid - true si la contraseña cumple todos los criterios
+   * @returns {string[]} return.errors - Array de mensajes de error (vacío si es válida)
+   * @returns {Object} return.details - Detalles específicos de cada criterio
+   * @returns {boolean} return.details.hasMinLength - true si tiene al menos 8 caracteres
+   * @returns {boolean} return.details.hasLowerCase - true si contiene minúscula
+   * @returns {boolean} return.details.hasUpperCase - true si contiene mayúscula
+   * @returns {boolean} return.details.hasNumber - true si contiene número
+   * @returns {boolean} return.details.hasSpecialChar - true si contiene carácter especial
+   *
+   * @example
+   * // Contraseña fuerte
+   * const strongResult = User.validatePasswordStrength("MiContraseña123!");
+   * // strongResult.isValid === true, strongResult.errors === []
+   *
+   * @example
+   * // Contraseña débil
+   * const weakResult = User.validatePasswordStrength("password");
+   * // weakResult.isValid === false
+   * // weakResult.errors === ["La contraseña debe contener al menos una mayúscula", ...]
+   */
+  static validatePasswordStrength(password) {
+    const errors = [];
+    const details = {
+      hasMinLength: false,
+      hasLowerCase: false,
+      hasUpperCase: false,
+      hasNumber: false,
+      hasSpecialChar: false,
+    };
+
+    if (!password || typeof password !== "string") {
+      errors.push("La contraseña es requerida y debe ser una cadena de texto");
+      return { isValid: false, errors, details };
+    }
+
+    // Validar longitud mínima
+    details.hasMinLength = password.length >= 8;
+    if (!details.hasMinLength) {
+      errors.push("La contraseña debe tener al menos 8 caracteres");
+    }
+
+    // Validar minúscula
+    details.hasLowerCase = /[a-z]/.test(password);
+    if (!details.hasLowerCase) {
+      errors.push("La contraseña debe contener al menos una letra minúscula");
+    }
+
+    // Validar mayúscula
+    details.hasUpperCase = /[A-Z]/.test(password);
+    if (!details.hasUpperCase) {
+      errors.push("La contraseña debe contener al menos una letra mayúscula");
+    }
+
+    // Validar número
+    details.hasNumber = /\d/.test(password);
+    if (!details.hasNumber) {
+      errors.push("La contraseña debe contener al menos un número");
+    }
+
+    // Validar carácter especial
+    details.hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
+    if (!details.hasSpecialChar) {
+      errors.push("La contraseña debe contener al menos un carácter especial");
+    }
+
+    return {
+      isValid: errors.length === 0,
+      errors,
+      details,
+    };
+  }
+
+  /**
    * Validar datos de usuario para creación (todos los campos requeridos)
    *
    * Esta función estática valida que todos los campos requeridos estén presentes
@@ -107,21 +194,21 @@ class User {
    * @returns {string[]} return.errors - Array de mensajes de error (vacío si es válido)
    *
    * @example
-   * // Datos válidos
-   * const validResult = User.validate({
-   *   name: "María González",
-   *   email: "maria@example.com",
-   *   password: "miContraseña123"
-   * });
+ * // Datos válidos
+ * const validResult = User.validate({
+ *   name: "María González",
+ *   email: "maria@example.com",
+ *   password: "SecurePass123!"
+ * });
    * // validResult.isValid === true, validResult.errors === []
    *
    * @example
-   * // Datos inválidos
-   * const invalidResult = User.validate({
-   *   name: "", // muy corto
-   *   email: "invalid-email", // formato inválido
-   *   password: "123" // muy corta
-   * });
+ * // Datos inválidos
+ * const invalidResult = User.validate({
+ *   name: "", // muy corto
+ *   email: "invalid-email", // formato inválido
+ *   password: "weak" // no cumple criterios de fortaleza
+ * });
    * // invalidResult.isValid === false
    * // invalidResult.errors === ["El nombre debe tener al menos 2 caracteres", ...]
    */
@@ -146,13 +233,18 @@ class User {
       }
     }
 
-    // Validar password
+    // Validar password con criterios de fortaleza
     if (!userData.password || typeof userData.password !== "string") {
       errors.push("La contraseña es requerida");
-    } else if (userData.password.length < 6) {
-      errors.push("La contraseña debe tener al menos 6 caracteres");
-    } else if (userData.password.length > 100) {
-      errors.push("La contraseña no puede exceder los 100 caracteres");
+    } else {
+      const passwordValidation = User.validatePasswordStrength(userData.password);
+      if (!passwordValidation.isValid) {
+        errors.push(...passwordValidation.errors);
+      }
+      // Mantener límite máximo de caracteres
+      if (userData.password.length > 100) {
+        errors.push("La contraseña no puede exceder los 100 caracteres");
+      }
     }
 
     return {
@@ -186,12 +278,12 @@ class User {
    * // validResult.isValid === true, validResult.errors === []
    *
    * @example
-   * // Actualización inválida
-   * const invalidResult = User.validateUpdate({
-   *   name: "A", // muy corto
-   *   email: "not-an-email", // formato inválido
-   *   password: "" // vacío
-   * });
+ * // Actualización inválida
+ * const invalidResult = User.validateUpdate({
+ *   name: "A", // muy corto
+ *   email: "not-an-email", // formato inválido
+ *   password: "weak" // no cumple criterios de fortaleza
+ * });
    * // invalidResult.isValid === false
    * // invalidResult.errors contiene los mensajes de error
    *
@@ -226,14 +318,19 @@ class User {
       }
     }
 
-    // Validar password si está presente
+    // Validar password si está presente con criterios de fortaleza
     if (userData.password !== undefined) {
       if (typeof userData.password !== "string") {
         errors.push("La contraseña debe ser una cadena de texto");
-      } else if (userData.password.length < 6) {
-        errors.push("La contraseña debe tener al menos 6 caracteres");
-      } else if (userData.password.length > 100) {
-        errors.push("La contraseña no puede exceder los 100 caracteres");
+      } else {
+        const passwordValidation = User.validatePasswordStrength(userData.password);
+        if (!passwordValidation.isValid) {
+          errors.push(...passwordValidation.errors);
+        }
+        // Mantener límite máximo de caracteres
+        if (userData.password.length > 100) {
+          errors.push("La contraseña no puede exceder los 100 caracteres");
+        }
       }
     }
 
@@ -256,14 +353,14 @@ class User {
    * @returns {string} return.email - Dirección de email del usuario
    * @returns {string} return.createdAt - Fecha de creación en formato ISO
    *
-   * @example
-   * const user = new User({
-   *   name: "María González",
-   *   email: "maria@example.com",
-   *   password: "secret123"
-   * });
-   *
-   * const publicData = user.toJSON();
+ * @example
+ * const user = new User({
+ *   name: "María González",
+ *   email: "maria@example.com",
+ *   password: "SecurePass123!"
+ * });
+ *
+ * const publicData = user.toJSON();
    * // {
    * //   id: "123e4567-e89b-12d3-a456-426614174000",
    * //   name: "María González",
@@ -298,19 +395,19 @@ class User {
    * @returns {string} return.password - Contraseña del usuario (¡USO INTERNO SOLAMENTE!)
    * @returns {string} return.createdAt - Fecha de creación en formato ISO
    *
-   * @example
-   * const user = new User({
-   *   name: "María González",
-   *   email: "maria@example.com",
-   *   password: "secret123"
-   * });
-   *
-   * const allData = user.toObject();
+ * @example
+ * const user = new User({
+ *   name: "María González",
+ *   email: "maria@example.com",
+ *   password: "SecurePass123!"
+ * });
+ *
+ * const allData = user.toObject();
    * // {
    * //   id: "123e4567-e89b-12d3-a456-426614174000",
    * //   name: "María González",
    * //   email: "maria@example.com",
-   * //   password: "secret123",  // ← ¡PELIGROSO!
+   * //   password: "SecurePass123!",  // ← ¡PELIGROSO!
    * //   createdAt: "2025-09-25T10:30:00.000Z"
    * // }
    *
@@ -350,7 +447,7 @@ class User {
  * const user = userRepository.create({
  *   name: "María González",
  *   email: "maria@example.com",
- *   password: "password123"
+ *   password: "SecurePass123!"
  * });
  *
  * @example
@@ -398,7 +495,7 @@ class UserRepository {
    *   const newUser = userRepository.create({
    *     name: "Juan Pérez",
    *     email: "juan@example.com",
-   *     password: "securePassword123"
+   *     password: "MySecurePass123!"
    *   });
    *
    *   console.log(newUser.id); // UUID generado
@@ -414,7 +511,7 @@ class UserRepository {
    *   userRepository.create({
    *     name: "Ana López",
    *     email: "juan@example.com", // Ya existe
-   *     password: "password456"
+   *     password: "AnotherSecure456!"
    *   });
    * } catch (error) {
    *   console.error(error.message); // "El email ya está registrado"
@@ -569,10 +666,10 @@ class UserRepository {
    * }
    *
    * @example
-   * // Solo actualizar contraseña
-   * const userWithNewPassword = userRepository.update("user-id-123", {
-   *   password: "nuevaContraseñaSegura123"
-   * });
+ * // Solo actualizar contraseña
+ * const userWithNewPassword = userRepository.update("user-id-123", {
+ *   password: "NuevaContraseñaSegura123!"
+ * });
    *
    * @example
    * // Error: email duplicado
