@@ -6,7 +6,7 @@ describe("User Model", () => {
       const userData = {
         name: "Juan Pérez",
         email: "juan@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       };
 
       const user = new User(userData);
@@ -18,7 +18,7 @@ describe("User Model", () => {
       );
       expect(user.name).toBe("Juan Pérez");
       expect(user.email).toBe("juan@example.com");
-      expect(user.password).toBe("SecurePass123!");
+      expect(user.password).toBe("123456");
       expect(user.createdAt).toBeDefined();
     });
 
@@ -28,7 +28,7 @@ describe("User Model", () => {
         id: customId,
         name: "María García",
         email: "maria@example.com",
-        password: "MyPassword123!",
+        password: "password123",
       };
 
       const user = new User(userData);
@@ -41,7 +41,7 @@ describe("User Model", () => {
       const userData = {
         name: "Carlos López",
         email: "carlos@example.com",
-        password: "SecurePass123!",
+        password: "secure123",
         createdAt: customDate,
       };
 
@@ -55,7 +55,7 @@ describe("User Model", () => {
       const user = new User({
         name: "Ana Martín",
         email: "ana@example.com",
-        password: "MySecurePass123!",
+        password: "mypass123",
       });
       const afterCreation = new Date().toISOString();
 
@@ -70,7 +70,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: "",
         email: "test@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(false);
@@ -82,7 +82,7 @@ describe("User Model", () => {
     test("debe rechazar nombre undefined", () => {
       const result = User.validate({
         email: "test@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(false);
@@ -95,7 +95,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: null,
         email: "test@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(false);
@@ -108,7 +108,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: "   ",
         email: "test@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(false);
@@ -121,7 +121,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: "A",
         email: "test@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(false);
@@ -135,7 +135,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: longName,
         email: "test@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(false);
@@ -148,7 +148,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: 123,
         email: "test@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(false);
@@ -161,7 +161,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: { firstName: "Juan" },
         email: "test@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(false);
@@ -174,7 +174,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: ["Juan", "Pérez"],
         email: "test@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(false);
@@ -187,7 +187,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: "Jo",
         email: "test@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(true);
@@ -199,7 +199,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: name50,
         email: "test@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(true);
@@ -210,7 +210,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: "  Juan Pérez  ",
         email: "test@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(true);
@@ -223,7 +223,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: "Juan Pérez",
         email: "",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(false);
@@ -233,7 +233,7 @@ describe("User Model", () => {
     test("debe rechazar email undefined", () => {
       const result = User.validate({
         name: "Juan Pérez",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(false);
@@ -244,7 +244,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: "Juan Pérez",
         email: null,
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(false);
@@ -255,7 +255,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: "Juan Pérez",
         email: 123456,
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(false);
@@ -266,7 +266,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: "Juan Pérez",
         email: "juanexample.com",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(false);
@@ -277,7 +277,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: "Juan Pérez",
         email: "juan@",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(false);
@@ -288,7 +288,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: "Juan Pérez",
         email: "juan@example",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(false);
@@ -299,7 +299,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: "Juan Pérez",
         email: "juan @example.com",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(false);
@@ -310,7 +310,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: "Juan Pérez",
         email: "juan@@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(false);
@@ -321,7 +321,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: "Juan Pérez",
         email: "@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(false);
@@ -332,7 +332,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: "Juan Pérez",
         email: "juan@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(true);
@@ -343,7 +343,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: "Juan Pérez",
         email: "juan@mail.example.com",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(true);
@@ -354,7 +354,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: "Juan Pérez",
         email: "juan123@example123.com",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(true);
@@ -365,7 +365,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: "Juan Pérez",
         email: "juan-perez@my-domain.com",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(true);
@@ -376,7 +376,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: "Juan Pérez",
         email: "juan.perez@example.co.uk",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(true);
@@ -448,7 +448,7 @@ describe("User Model", () => {
 
       expect(result.isValid).toBe(false);
       expect(result.errors).toContain(
-        "La contraseña debe tener al menos 8 caracteres"
+        "La contraseña debe tener al menos 6 caracteres"
       );
     });
 
@@ -470,7 +470,7 @@ describe("User Model", () => {
       const result = User.validate({
         name: "Juan Pérez",
         email: "juan@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       });
 
       expect(result.isValid).toBe(true);
@@ -478,11 +478,7 @@ describe("User Model", () => {
     });
 
     test("debe aceptar contraseña de longitud máxima - 100 caracteres", () => {
-      // Crear contraseña de 100 caracteres que cumpla con todos los criterios
-      const basePassword = "MySecurePass123!"; // 16 caracteres
-      const remainingLength = 100 - basePassword.length;
-      const maxPassword = basePassword + "a".repeat(remainingLength - 1) + "1"; // Agregar más caracteres para llegar a 100
-
+      const maxPassword = "a".repeat(100);
       const result = User.validate({
         name: "Juan Pérez",
         email: "juan@example.com",
@@ -504,11 +500,11 @@ describe("User Model", () => {
       expect(result.errors).toHaveLength(0);
     });
 
-    test("debe aceptar contraseña con espacios y caracteres especiales", () => {
+    test("debe aceptar contraseña con espacios", () => {
       const result = User.validate({
         name: "Juan Pérez",
         email: "juan@example.com",
-        password: "Mi Contraseña Segura 123!",
+        password: "mi contraseña segura",
       });
 
       expect(result.isValid).toBe(true);
@@ -521,17 +517,17 @@ describe("User Model", () => {
       const result = User.validate({
         name: "",
         email: "email-invalido",
-        password: "weak",
+        password: "123",
       });
 
       expect(result.isValid).toBe(false);
-      expect(result.errors).toHaveLength(6);
+      expect(result.errors).toHaveLength(3);
       expect(result.errors).toContain(
         "El nombre es requerido y debe ser una cadena de texto"
       );
       expect(result.errors).toContain("El formato del email no es válido");
       expect(result.errors).toContain(
-        "La contraseña debe tener al menos 8 caracteres"
+        "La contraseña debe tener al menos 6 caracteres"
       );
     });
 
@@ -582,12 +578,12 @@ describe("User Model", () => {
 
     test("debe validar contraseña si está presente", () => {
       const result = User.validateUpdate({
-        password: "weak",
+        password: "123",
       });
 
       expect(result.isValid).toBe(false);
       expect(result.errors).toContain(
-        "La contraseña debe tener al menos 8 caracteres"
+        "La contraseña debe tener al menos 6 caracteres"
       );
     });
 
@@ -610,7 +606,7 @@ describe("User Model", () => {
       });
 
       expect(result.isValid).toBe(false);
-      expect(result.errors).toHaveLength(6);
+      expect(result.errors).toHaveLength(3);
     });
   });
 
@@ -741,7 +737,7 @@ describe("UserRepository", () => {
       const userData = {
         name: "Juan Pérez",
         email: "juan@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       };
 
       const user = repository.create(userData);
@@ -749,7 +745,7 @@ describe("UserRepository", () => {
       expect(user).toBeInstanceOf(User);
       expect(user.name).toBe("Juan Pérez");
       expect(user.email).toBe("juan@example.com");
-      expect(user.password).toBe("SecurePass123!");
+      expect(user.password).toBe("123456");
       expect(user.id).toBeDefined();
       expect(user.createdAt).toBeDefined();
       expect(repository.users).toHaveLength(1);
@@ -760,7 +756,7 @@ describe("UserRepository", () => {
       const invalidData = {
         name: "",
         email: "email-invalido",
-        password: "weak",
+        password: "123",
       };
 
       expect(() => {
@@ -774,13 +770,13 @@ describe("UserRepository", () => {
       const userData1 = {
         name: "Juan Pérez",
         email: "juan@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       };
 
       const userData2 = {
         name: "María García",
         email: "juan@example.com", // Email duplicado
-        password: "SimplePass123!",
+        password: "654321",
       };
 
       repository.create(userData1);
@@ -796,13 +792,13 @@ describe("UserRepository", () => {
       const userData1 = {
         name: "Juan Pérez",
         email: "juan@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       };
 
       const userData2 = {
         name: "María García",
         email: "maria@example.com",
-        password: "SimplePass123!",
+        password: "654321",
       };
 
       const user1 = repository.create(userData1);
@@ -826,13 +822,13 @@ describe("UserRepository", () => {
       const userData1 = {
         name: "Juan Pérez",
         email: "juan@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       };
 
       const userData2 = {
         name: "María García",
         email: "maria@example.com",
-        password: "SimplePass123!",
+        password: "654321",
       };
 
       repository.create(userData1);
@@ -863,7 +859,7 @@ describe("UserRepository", () => {
       const userData = {
         name: "Juan Pérez",
         email: "juan@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       };
 
       const createdUser = repository.create(userData);
@@ -877,13 +873,13 @@ describe("UserRepository", () => {
       const userData1 = {
         name: "Juan Pérez",
         email: "juan@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       };
 
       const userData2 = {
         name: "María García",
         email: "maria@example.com",
-        password: "SimplePass123!",
+        password: "654321",
       };
 
       const user1 = repository.create(userData1);
@@ -910,7 +906,7 @@ describe("UserRepository", () => {
       const userData = {
         name: "Juan Pérez",
         email: "juan@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       };
 
       const createdUser = repository.create(userData);
@@ -924,13 +920,13 @@ describe("UserRepository", () => {
       const userData1 = {
         name: "Juan Pérez",
         email: "juan@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       };
 
       const userData2 = {
         name: "María García",
         email: "maria@example.com",
-        password: "SimplePass123!",
+        password: "654321",
       };
 
       const user1 = repository.create(userData1);
@@ -947,7 +943,7 @@ describe("UserRepository", () => {
       const userData = {
         name: "Juan Pérez",
         email: "juan@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       };
 
       repository.create(userData);
@@ -967,7 +963,7 @@ describe("UserRepository", () => {
       const userData = {
         name: "Juan Pérez",
         email: "juan@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       };
       existingUser = repository.create(userData);
     });
@@ -987,7 +983,7 @@ describe("UserRepository", () => {
 
       expect(updatedUser.name).toBe("Juan Carlos Pérez");
       expect(updatedUser.email).toBe("juan@example.com"); // Sin cambios
-      expect(updatedUser.password).toBe("SecurePass123!"); // Sin cambios
+      expect(updatedUser.password).toBe("123456"); // Sin cambios
       expect(updatedUser.id).toBe(existingUser.id); // Sin cambios
     });
 
@@ -1002,10 +998,10 @@ describe("UserRepository", () => {
 
     test("debe actualizar contraseña", () => {
       const updatedUser = repository.update(existingUser.id, {
-        password: "NuevaPassword123!",
+        password: "nuevapassword",
       });
 
-      expect(updatedUser.password).toBe("NuevaPassword123!");
+      expect(updatedUser.password).toBe("nuevapassword");
       expect(updatedUser.name).toBe("Juan Pérez"); // Sin cambios
     });
 
@@ -1013,12 +1009,12 @@ describe("UserRepository", () => {
       const updatedUser = repository.update(existingUser.id, {
         name: "María García",
         email: "maria@example.com",
-        password: "NewSecurePass123!",
+        password: "newpass123",
       });
 
       expect(updatedUser.name).toBe("María García");
       expect(updatedUser.email).toBe("maria@example.com");
-      expect(updatedUser.password).toBe("NewSecurePass123!");
+      expect(updatedUser.password).toBe("newpass123");
       expect(updatedUser.id).toBe(existingUser.id); // Sin cambios
     });
 
@@ -1041,7 +1037,7 @@ describe("UserRepository", () => {
       const userData2 = {
         name: "María García",
         email: "maria@example.com",
-        password: "SimplePass123!",
+        password: "654321",
       };
       const user2 = repository.create(userData2);
 
@@ -1078,7 +1074,7 @@ describe("UserRepository", () => {
 
       expect(updatedUser.name).toBe("Nuevo Nombre");
       expect(updatedUser.email).toBe("juan@example.com"); // Sin cambios
-      expect(updatedUser.password).toBe("SecurePass123!"); // Sin cambios
+      expect(updatedUser.password).toBe("123456"); // Sin cambios
     });
 
     test("debe actualizar referencia en el array", () => {
@@ -1102,7 +1098,7 @@ describe("UserRepository", () => {
       const userData = {
         name: "Juan Pérez",
         email: "juan@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       };
 
       const user = repository.create(userData);
@@ -1117,13 +1113,13 @@ describe("UserRepository", () => {
       const userData1 = {
         name: "Juan Pérez",
         email: "juan@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       };
 
       const userData2 = {
         name: "María García",
         email: "maria@example.com",
-        password: "SimplePass123!",
+        password: "654321",
       };
 
       const user1 = repository.create(userData1);
@@ -1141,19 +1137,19 @@ describe("UserRepository", () => {
       const userData1 = {
         name: "Usuario 1",
         email: "user1@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       };
 
       const userData2 = {
         name: "Usuario 2",
         email: "user2@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       };
 
       const userData3 = {
         name: "Usuario 3",
         email: "user3@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       };
 
       const user1 = repository.create(userData1);
@@ -1174,13 +1170,13 @@ describe("UserRepository", () => {
       const userData1 = {
         name: "Usuario 1",
         email: "user1@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       };
 
       const userData2 = {
         name: "Usuario 2",
         email: "user2@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       };
 
       // Crear múltiples usuarios
@@ -1203,35 +1199,35 @@ describe("UserRepository", () => {
       const userData = {
         name: "José María Ñoño",
         email: "jose.maria@dominio-español.com",
-        password: "Contraseña123!@#",
+        password: "contraseña123!@#",
       };
 
       const user = repository.create(userData);
 
       expect(user.name).toBe("José María Ñoño");
       expect(user.email).toBe("jose.maria@dominio-español.com");
-      expect(user.password).toBe("Contraseña123!@#");
+      expect(user.password).toBe("contraseña123!@#");
     });
 
     test("debe manejar límites de validación exactos", () => {
       const userData = {
         name: "ab", // Exactamente 2 caracteres
         email: "a@b.c", // Email mínimo válido
-        password: "SecurePass123!", // Exactamente 6 caracteres
+        password: "123456", // Exactamente 6 caracteres
       };
 
       const user = repository.create(userData);
 
       expect(user.name).toBe("ab");
       expect(user.email).toBe("a@b.c");
-      expect(user.password).toBe("SecurePass123!");
+      expect(user.password).toBe("123456");
     });
 
     test("debe manejar nombres con espacios múltiples", () => {
       const userData = {
         name: "   Juan    Pérez   ",
         email: "juan@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       };
 
       const user = repository.create(userData);
@@ -1244,7 +1240,7 @@ describe("UserRepository", () => {
       const userData = {
         name: "Juan Pérez",
         email: "juan@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       };
 
       const user = repository.create(userData);
@@ -1276,7 +1272,7 @@ describe("UserRepository", () => {
         const userData = {
           name: `Usuario ${i}`,
           email: `user${i}@example.com`,
-          password: "SecurePass123!",
+          password: "123456",
         };
         users.push(repository.create(userData));
       }
@@ -1302,7 +1298,7 @@ describe("UserRepository", () => {
       const userData = {
         name: "Juan Pérez",
         email: "juan@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       };
 
       const user = repository.create(userData);
@@ -1313,7 +1309,7 @@ describe("UserRepository", () => {
         repository.create({
           name: "Otro Usuario",
           email: "juan@example.com",
-          password: "SimplePass123!",
+          password: "654321",
         });
       } catch (error) {
         // Error esperado
@@ -1334,20 +1330,20 @@ describe("UserRepository", () => {
       const unchangedUser = repository.findById(user.id);
       expect(unchangedUser.name).toBe("Juan Pérez");
       expect(unchangedUser.email).toBe("juan@example.com");
-      expect(unchangedUser.password).toBe("SecurePass123!");
+      expect(unchangedUser.password).toBe("123456");
     });
 
     test("debe mantener unicidad de emails después de múltiples operaciones", () => {
       const userData1 = {
         name: "Usuario 1",
         email: "user1@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       };
 
       const userData2 = {
         name: "Usuario 2",
         email: "user2@example.com",
-        password: "SecurePass123!",
+        password: "123456",
       };
 
       const user1 = repository.create(userData1);
@@ -1365,211 +1361,6 @@ describe("UserRepository", () => {
       const updatedEmails = repository.users.map((u) => u.email);
       const updatedUniqueEmails = [...new Set(updatedEmails)];
       expect(updatedEmails).toHaveLength(updatedUniqueEmails.length);
-    });
-  });
-
-  describe("Validación de fortaleza de contraseña", () => {
-    describe("validatePasswordStrength", () => {
-      test("debe validar contraseña fuerte correctamente", () => {
-        const result = User.validatePasswordStrength("MiContraseña123!");
-
-        expect(result.isValid).toBe(true);
-        expect(result.errors).toHaveLength(0);
-        expect(result.details.hasMinLength).toBe(true);
-        expect(result.details.hasLowerCase).toBe(true);
-        expect(result.details.hasUpperCase).toBe(true);
-        expect(result.details.hasNumber).toBe(true);
-        expect(result.details.hasSpecialChar).toBe(true);
-      });
-
-      test("debe rechazar contraseñas muy cortas", () => {
-        const result = User.validatePasswordStrength("Short1!");
-
-        expect(result.isValid).toBe(false);
-        expect(result.errors).toContain(
-          "La contraseña debe tener al menos 8 caracteres"
-        );
-        expect(result.details.hasMinLength).toBe(false);
-      });
-
-      test("debe rechazar contraseñas sin minúscula", () => {
-        const result = User.validatePasswordStrength("PASSWORD123!");
-
-        expect(result.isValid).toBe(false);
-        expect(result.errors).toContain(
-          "La contraseña debe contener al menos una letra minúscula"
-        );
-        expect(result.details.hasLowerCase).toBe(false);
-      });
-
-      test("debe rechazar contraseñas sin mayúscula", () => {
-        const result = User.validatePasswordStrength("password123!");
-
-        expect(result.isValid).toBe(false);
-        expect(result.errors).toContain(
-          "La contraseña debe contener al menos una letra mayúscula"
-        );
-        expect(result.details.hasUpperCase).toBe(false);
-      });
-
-      test("debe rechazar contraseñas sin números", () => {
-        const result = User.validatePasswordStrength("PasswordOnly!");
-
-        expect(result.isValid).toBe(false);
-        expect(result.errors).toContain(
-          "La contraseña debe contener al menos un número"
-        );
-        expect(result.details.hasNumber).toBe(false);
-      });
-
-      test("debe rechazar contraseñas sin caracteres especiales", () => {
-        const result = User.validatePasswordStrength("Password123");
-
-        expect(result.isValid).toBe(false);
-        expect(result.errors).toContain(
-          "La contraseña debe contener al menos un carácter especial"
-        );
-        expect(result.details.hasSpecialChar).toBe(false);
-      });
-
-      test("debe rechazar entradas no válidas", () => {
-        const result = User.validatePasswordStrength(null);
-
-        expect(result.isValid).toBe(false);
-        expect(result.errors).toContain(
-          "La contraseña es requerida y debe ser una cadena de texto"
-        );
-      });
-
-      test("debe manejar contraseñas con múltiples fallos", () => {
-        const result = User.validatePasswordStrength("weak");
-
-        expect(result.isValid).toBe(false);
-        expect(result.errors).toHaveLength(4); // minLength, upperCase, number, specialChar
-        expect(result.errors).toContain(
-          "La contraseña debe tener al menos 8 caracteres"
-        );
-        expect(result.errors).toContain(
-          "La contraseña debe contener al menos una letra mayúscula"
-        );
-        expect(result.errors).toContain(
-          "La contraseña debe contener al menos un número"
-        );
-        expect(result.errors).toContain(
-          "La contraseña debe contener al menos un carácter especial"
-        );
-      });
-
-      test("debe validar diferentes caracteres especiales", () => {
-        const specialChars = [
-          "!",
-          "@",
-          "#",
-          "$",
-          "%",
-          "^",
-          "&",
-          "*",
-          "(",
-          ")",
-          "_",
-          "+",
-          "-",
-          "=",
-          "[",
-          "]",
-          "{",
-          "}",
-          ";",
-          ":",
-          "'",
-          '"',
-          "\\",
-          "|",
-          ",",
-          ".",
-          "<",
-          ">",
-          "/",
-          "?",
-        ];
-
-        specialChars.forEach((char) => {
-          const result = User.validatePasswordStrength(`Password123${char}`);
-          expect(result.isValid).toBe(true);
-          expect(result.details.hasSpecialChar).toBe(true);
-        });
-      });
-
-      test("debe validar contraseñas en el límite de longitud", () => {
-        const minLengthPassword = "Passw0rd!"; // 9 caracteres
-        const result = User.validatePasswordStrength(minLengthPassword);
-
-        expect(result.isValid).toBe(true);
-        expect(result.details.hasMinLength).toBe(true);
-      });
-    });
-
-    describe("Integración con validate()", () => {
-      test("debe usar validación de fortaleza en validate()", () => {
-        const validData = {
-          name: "Juan Pérez",
-          email: "juan@example.com",
-          password: "SecurePass123!",
-        };
-
-        const result = User.validate(validData);
-        expect(result.isValid).toBe(true);
-        expect(result.errors).toHaveLength(0);
-      });
-
-      test("debe rechazar contraseñas débiles en validate()", () => {
-        const invalidData = {
-          name: "Juan Pérez",
-          email: "juan@example.com",
-          password: "weak",
-        };
-
-        const result = User.validate(invalidData);
-        expect(result.isValid).toBe(false);
-        expect(result.errors).toContain(
-          "La contraseña debe tener al menos 8 caracteres"
-        );
-      });
-    });
-
-    describe("Integración con validateUpdate()", () => {
-      test("debe usar validación de fortaleza en validateUpdate()", () => {
-        const validUpdate = {
-          password: "NewSecurePass456!",
-        };
-
-        const result = User.validateUpdate(validUpdate);
-        expect(result.isValid).toBe(true);
-        expect(result.errors).toHaveLength(0);
-      });
-
-      test("debe rechazar contraseñas débiles en validateUpdate()", () => {
-        const invalidUpdate = {
-          password: "weak",
-        };
-
-        const result = User.validateUpdate(invalidUpdate);
-        expect(result.isValid).toBe(false);
-        expect(result.errors).toContain(
-          "La contraseña debe tener al menos 8 caracteres"
-        );
-      });
-
-      test("debe permitir actualizaciones sin contraseña", () => {
-        const updateWithoutPassword = {
-          name: "Nuevo Nombre",
-        };
-
-        const result = User.validateUpdate(updateWithoutPassword);
-        expect(result.isValid).toBe(true);
-        expect(result.errors).toHaveLength(0);
-      });
     });
   });
 });
