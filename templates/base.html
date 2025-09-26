@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="{{language}}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f4f4f4;
+      }
+
+      .email-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .email-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 30px 20px;
+        text-align: center;
+      }
+
+      .logo {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .email-content {
+        padding: 40px 30px;
+      }
+
+      .email-title {
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .email-text {
+        color: #666;
+        font-size: 16px;
+        line-height: 1.8;
+        margin-bottom: 20px;
+      }
+
+      .button {
+        display: inline-block;
+        padding: 15px 30px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        text-align: center;
+        margin: 20px 0;
+        transition: transform 0.2s ease;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+      }
+
+      .button-container {
+        text-align: center;
+        margin: 30px 0;
+      }
+
+      .email-footer {
+        background-color: #f8f9fa;
+        padding: 30px 20px;
+        text-align: center;
+        border-top: 1px solid #eee;
+      }
+
+      .footer-text {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+
+      .social-links {
+        margin: 20px 0;
+      }
+
+      .social-links a {
+        display: inline-block;
+        margin: 0 10px;
+        color: #667eea;
+        text-decoration: none;
+      }
+
+      .divider {
+        height: 1px;
+        background-color: #eee;
+        margin: 30px 0;
+      }
+
+      .highlight {
+        background-color: #fff3cd;
+        border: 1px solid #ffeaa7;
+        border-radius: 4px;
+        padding: 15px;
+        margin: 20px 0;
+      }
+
+      .warning {
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        border-radius: 4px;
+        padding: 15px;
+        margin: 20px 0;
+        color: #721c24;
+      }
+
+      .success {
+        background-color: #d4edda;
+        border: 1px solid #c3e6cb;
+        border-radius: 4px;
+        padding: 15px;
+        margin: 20px 0;
+        color: #155724;
+      }
+
+      @media only screen and (max-width: 600px) {
+        .email-container {
+          width: 100% !important;
+          margin: 0 !important;
+        }
+
+        .email-content {
+          padding: 20px !important;
+        }
+
+        .email-header {
+          padding: 20px !important;
+        }
+
+        .email-title {
+          font-size: 20px !important;
+        }
+
+        .button {
+          display: block !important;
+          width: 100% !important;
+          margin: 20px 0 !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <div class="email-header">
+        <div class="logo">{{companyName}}</div>
+        <div>{{headerSubtitle}}</div>
+      </div>
+
+      <div class="email-content">{{content}}</div>
+
+      <div class="email-footer">
+        <div class="footer-text">{{footerText}}</div>
+        <div class="footer-text">{{companyAddress}}</div>
+        <div class="social-links">{{socialLinks}}</div>
+        <div class="footer-text" style="font-size: 12px; color: #999">
+          Si no deseas recibir estos emails, puedes
+          <a href="{{unsubscribeUrl}}" style="color: #999"
+            >darte de baja aquí</a
+          >
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

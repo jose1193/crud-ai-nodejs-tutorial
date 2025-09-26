@@ -1,0 +1,59 @@
+<div class="email-title">Verificación de Email</div>
+
+<div class="email-text">
+    Hola <strong>{{userName}}</strong>,
+</div>
+
+<div class="email-text">
+    Gracias por registrarte en {{companyName}}. Para completar tu registro y activar tu cuenta, necesitamos verificar tu dirección de email.
+</div>
+
+<div class="highlight">
+    <strong>📧 Verificación requerida</strong><br>
+    Tu cuenta estará limitada hasta que verifiques tu email. Este proceso es rápido y solo toma unos segundos.
+</div>
+
+<div class="email-text">
+    Haz clic en el botón de abajo para verificar tu email:
+</div>
+
+<div class="button-container">
+    <a href="{{verificationUrl}}" class="button">Verificar Email</a>
+</div>
+
+<div class="email-text">
+    Si el botón no funciona, puedes copiar y pegar el siguiente enlace en tu navegador:
+</div>
+
+<div style="background-color: #f8f9fa; padding: 15px; border-radius: 4px; margin: 20px 0; word-break: break-all; font-family: monospace; font-size: 14px;">
+    {{verificationUrl}}
+</div>
+
+<div class="warning">
+    <strong>⏰ Tiempo límite:</strong> Este enlace de verificación expirará en <strong>{{expirationTime}}</strong>. Si no verificas tu email antes de ese tiempo, tendrás que solicitar un nuevo enlace de verificación.
+</div>
+
+<div class="email-text">
+    Una vez verificado tu email, podrás:
+</div>
+
+<ul style="color: #666; font-size: 16px; line-height: 1.8; margin: 20px 0; padding-left: 20px;">
+    <li>Acceder a todas las funcionalidades de tu cuenta</li>
+    <li>Recibir notificaciones importantes</li>
+    <li>Recuperar tu contraseña si la olvidas</li>
+    <li>Mantener tu cuenta segura</li>
+</ul>
+
+<div class="divider"></div>
+
+<div class="email-text" style="font-size: 14px; color: #999;">
+    <strong>Detalles de verificación:</strong><br>
+    Email a verificar: {{userEmail}}<br>
+    Código de verificación: {{verificationCode}}<br>
+    Fecha de solicitud: {{requestDate}}<br>
+    Expira el: {{expirationDate}}
+</div>
+
+<div class="email-text" style="font-size: 14px; color: #999;">
+    Si no creaste esta cuenta, puedes ignorar este email. La cuenta será eliminada automáticamente si no se verifica.
+</div>

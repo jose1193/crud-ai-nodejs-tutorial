@@ -1,0 +1,72 @@
+<div class="email-title">{{notificationTitle}}</div>
+
+<div class="email-text">Hola <strong>{{userName}}</strong>,</div>
+
+<div class="email-text">{{notificationMessage}}</div>
+
+{{#if isUrgent}}
+<div class="warning">
+  <strong>🚨 Notificación Urgente</strong><br />
+  {{urgentMessage}}
+</div>
+{{/if}} {{#if isSuccess}}
+<div class="success">
+  <strong>✅ {{successTitle}}</strong><br />
+  {{successMessage}}
+</div>
+{{/if}} {{#if isInfo}}
+<div class="highlight">
+  <strong>ℹ️ {{infoTitle}}</strong><br />
+  {{infoMessage}}
+</div>
+{{/if}} {{#if hasDetails}}
+<div class="email-text">
+  <strong>Detalles:</strong>
+</div>
+
+<div
+  style="
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 4px;
+    margin: 20px 0;
+  "
+>
+  {{#each details}}
+  <div style="margin-bottom: 10px">
+    <strong>{{this.label}}:</strong> {{this.value}}
+  </div>
+  {{/each}}
+</div>
+{{/if}} {{#if hasAction}}
+<div class="email-text">{{actionDescription}}</div>
+
+<div class="button-container">
+  <a href="{{actionUrl}}" class="button">{{actionButtonText}}</a>
+</div>
+{{/if}} {{#if hasSecondaryAction}}
+<div class="button-container">
+  <a href="{{secondaryActionUrl}}" class="button" style="background: #6c757d"
+    >{{secondaryActionText}}</a
+  >
+</div>
+{{/if}}
+
+<div class="divider"></div>
+
+<div class="email-text" style="font-size: 14px; color: #999">
+  <strong>Información de la notificación:</strong><br />
+  Tipo: {{notificationType}}<br />
+  Fecha: {{notificationDate}}<br />
+  ID de notificación: {{notificationId}} {{#if relatedEntity}}
+  <br />Relacionado con: {{relatedEntity}} {{/if}}
+</div>
+
+{{#if hasUnsubscribe}}
+<div class="email-text" style="font-size: 14px; color: #999">
+  Si no deseas recibir este tipo de notificaciones, puedes
+  <a href="{{unsubscribeUrl}}" style="color: #999"
+    >ajustar tus preferencias aquí</a
+  >.
+</div>
+{{/if}}
