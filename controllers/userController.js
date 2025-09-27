@@ -65,14 +65,14 @@ class UserController {
       try {
         if (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
           const emailService = await getEmailService();
-          await emailService.sendAdvancedWelcomeEmail(email, {
+          await emailService.sendWelcomeEmail(email, {
             name,
             email,
             id: user.id,
             ip: req.ip,
             userAgent: req.get("User-Agent"),
             template: "welcome-v2",
-            features: ["advanced-analytics", "premium-support"]
+            features: ["advanced-analytics", "premium-support"],
           });
         } else {
           console.log("ℹ Email no configurado - saltando envío de bienvenida");
