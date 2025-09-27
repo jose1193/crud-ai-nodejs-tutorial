@@ -10,7 +10,10 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:unit": "jest --testPathPatterns=unit",
-    "test:integration": "jest --testPathPatterns=integration"
+    "test:integration": "jest --testPathPatterns=integration",
+    "changelog": "node scripts/generate-changelog.js",
+    "changelog:preview": "node scripts/generate-changelog.js --preview",
+    "changelog:test": "node scripts/test-changelog.js"
   },
   "keywords": [
     "nodejs",

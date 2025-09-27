@@ -675,19 +675,30 @@ class EmailService {
    * // }
    */
   async sendWelcomeEmail(userEmail, userData) {
+    // Usar template personalizado si se proporciona, sino usar "welcome" por defecto
+    const templateName = userData.template || "welcome";
+
+    // Preparar datos base
+    const emailData = {
+      userName: userData.name,
+      userEmail: userData.email,
+      userId: userData.id,
+      registrationDate: new Date().toLocaleDateString("es-ES"),
+      registrationIP: userData.ip || "No disponible",
+      userAgent: userData.userAgent || "No disponible",
+      loginUrl: `${emailConfig.templates.baseUrl}/login`,
+    };
+
+    // Agregar features si se proporcionan
+    if (userData.features && Array.isArray(userData.features)) {
+      emailData.features = userData.features;
+    }
+
     return await this.queueEmail({
       to: userEmail,
       subject: `¡Bienvenido a ${emailConfig.fromName}!`,
-      template: "welcome",
-      data: {
-        userName: userData.name,
-        userEmail: userData.email,
-        userId: userData.id,
-        registrationDate: new Date().toLocaleDateString("es-ES"),
-        registrationIP: userData.ip || "No disponible",
-        userAgent: userData.userAgent || "No disponible",
-        loginUrl: `${emailConfig.templates.baseUrl}/login`,
-      },
+      template: templateName,
+      data: emailData,
     });
   }
 
